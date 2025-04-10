@@ -75,8 +75,7 @@ function handle_event(e) {
         : `<span class='correct-answer'>${appState.correctAnswer}</span>`;
       show_feedback(`Incorrect. The correct answer is: ${content}`, true);
     }
-  }
-  
+  }  
 
   if (id === "got_it" || id === "next_question") {
     appState.currentQuestion++;
@@ -140,4 +139,3 @@ function update_view(view, model = {}) {
 function isImageUrl(url) {
   return /\.(jpeg|jpg|gif|png|svg|webp)$/i.test(url);
 }
-
