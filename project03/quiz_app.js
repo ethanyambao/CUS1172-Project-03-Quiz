@@ -65,16 +65,18 @@ function handle_event(e) {
   }
 
   if (dataset.img) {
-    if (dataset.img === appState.correctAnswer) {
+    if (e.target.alt === appState.correctAnswer) {
       show_feedback("Correct!", false, true);
       appState.score++;
     } else {
-      const content = isImageUrl(appState.correctAnswer)
-        ? `<img src='${appState.correctAnswer}' class='img-fluid correct-answer-img' alt='Correct Answer Image'>`
+      const correctImage = document.querySelector(`img[alt='${appState.correctAnswer}']`);
+      const content = correctImage
+        ? `<img src='${correctImage.src}' class='img-fluid correct-answer-img' alt='Correct Answer Image'>`
         : `<span class='correct-answer'>${appState.correctAnswer}</span>`;
       show_feedback(`Incorrect. The correct answer is: ${content}`, true);
     }
   }
+  
 
   if (id === "got_it" || id === "next_question") {
     appState.currentQuestion++;
