@@ -1,0 +1,99 @@
+{
+    "quiz1": [
+      {
+        "id": 0,
+        "type": "multiple-choice",
+        "text": "Which keyword declares a block-scoped variable in JavaScript?",
+        "options": ["var", "let", "def", "int"],
+        "answer": "let"
+      },
+      {
+        "id": 1,
+        "type": "narrative",
+        "text": "What JavaScript function is used to convert a string to an integer?",
+        "answer": "parseInt"
+      },
+      {
+        "id": 2,
+        "type": "image",
+        "text": "Which of these is the official JavaScript logo?",
+        "images": [
+          {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png",
+            "alt": "JS Logo"
+          },
+          {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/1/1f/HTML5_logo_black.svg",
+            "alt": "HTML Logo"
+          },
+          {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/1/18/C_Programming_Language.svg",
+            "alt": "C Logo"
+          }
+        ],
+        "answer": "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png"
+      },
+      {
+        "id": 3,
+        "type": "multiple-choice",
+        "text": "Which of the following is NOT a JavaScript data type?",
+        "options": ["Boolean", "Undefined", "Float", "Symbol"],
+        "answer": "Float"
+      },
+      {
+        "id": 4,
+        "type": "narrative",
+        "text": "What keyword is used in JavaScript to exit a loop early?",
+        "answer": "break"
+      }
+    ],
+    "quiz2": [
+      {
+        "id": 0,
+        "type": "multiple-choice",
+        "text": "What keyword is used to define a function in Python?",
+        "options": ["function", "def", "func", "lambda"],
+        "answer": "def"
+      },
+      {
+        "id": 1,
+        "type": "narrative",
+        "text": "What symbol is used in Python to write a single-line comment?",
+        "answer": "#"
+      },
+      {
+        "id": 2,
+        "type": "image",
+        "text": "Which image shows the official Python logo?",
+        "images": [
+          {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg",
+            "alt": "Python Logo"
+          },
+          {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png",
+            "alt": "JavaScript Logo"
+          },
+          {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/1/18/C_Programming_Language.svg",
+            "alt": "C Logo"
+          }
+        ],
+        "answer": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg"
+      },
+      {
+        "id": 3,
+        "type": "multiple-choice",
+        "text": "Which of these data types is mutable in Python?",
+        "options": ["tuple", "string", "list", "int"],
+        "answer": "list"
+      },
+      {
+        "id": 4,
+        "type": "narrative",
+        "text": "Which built-in function in Python returns the number of items in a list?",
+        "answer": "len"
+      }
+    ]
+  }
+  

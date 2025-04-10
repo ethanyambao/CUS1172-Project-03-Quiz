@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz App SPA</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+  <script defer src="quiz_app.js"></script>
+</head>
+<body>
+  <div id="widget_view" class="container mt-5"></div>
+
+  <script id="intro_view" type="text/x-handlebars-template">
+    <h3>Welcome to the Quiz</h3>
+    <input id="username" class="form-control my-2" placeholder="Enter name">
+    <select id="quiz_select" class="form-select my-2">
+      <option value="quiz1">JavaScript Quiz</option>
+      <option value="quiz2">Python Quiz</option>
+    </select>
+    <button class="btn btn-primary" id="start_quiz">Start Quiz</button>
+  </script>
+
+  <script id="question_view" type="text/x-handlebars-template">
+    <div>
+      <h5>Question {{currentIndex}} of {{total}}</h5>
+      <p>{{question.text}}</p>
+
+      {{#ifCond question.type "multiple-choice"}}
+        {{#each question.options}}
+          <button class="btn btn-outline-dark d-block my-1" data-answer="{{this}}">{{this}}</button>
+        {{/each}}
+      {{/ifCond}}
+
+      {{#ifCond question.type "narrative"}}
+        <input id="text-response" class="form-control mb-2" placeholder="Type your answer">
+        <button class="btn btn-primary" id="submit-text-answer">Submit</button>
+      {{/ifCond}}
+
+      {{#ifCond question.type "image"}}
+        <div class="d-flex flex-wrap">
+          {{#each question.images}}
+            <img src="{{url}}" alt="{{alt}}" data-img="{{url}}" style="height:100px;margin:10px;cursor:pointer;" class="border border-dark">
+          {{/each}}
+        </div>
+      {{/ifCond}}
+    </div>
+  </script>
+
+  <script id="feedback_view" type="text/x-handlebars-template">
+    <div class="alert alert-info">{{feedback}}</div>
+    {{#if showButton}}
+      <button id="got_it" class="btn btn-success">Got it</button>
+    {{/if}}
+  </script>
+
+  <script id="result_view" type="text/x-handlebars-template">
+    <h3>{{message}}</h3>
+    <p>Your score: {{score}}</p>
+    <button id="restart_quiz" class="btn btn-primary">Restart</button>
+  </script>
+</body>
+</html>
