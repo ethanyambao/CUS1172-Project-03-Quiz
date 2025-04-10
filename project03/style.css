@@ -78,3 +78,10 @@ img[data-img]:hover {
 .feedback-container {
   margin-top: 15px;
 }
+
+.correct-answer-img {
+  max-height: 100px;
+  margin-top: 10px;
+  border-radius: 8px;
+  display: block;
+}

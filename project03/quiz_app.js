@@ -7,6 +7,7 @@ const appState = {
   startTime: null,
   correctAnswer: "",
   isLastQuestion: false,
+  error: ""
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -28,12 +29,20 @@ function handle_event(e) {
     const nameInput = document.querySelector("#username");
     const quizInput = document.querySelector("#quiz_select");
 
-    appState.username = nameInput.value;
+    const name = nameInput.value.trim();
+    if (name === "") {
+      appState.error = "Please enter your name.";
+      update_view("#intro_view");
+      return;
+    }
+
+    appState.username = name;
     appState.quizId = quizInput.value;
     appState.currentQuestion = 0;
     appState.score = 0;
     appState.total = 0;
     appState.startTime = Date.now();
+    appState.error = "";
     load_question();
     return;
   }
@@ -75,7 +84,7 @@ function handle_event(e) {
         : `<span class='correct-answer'>${appState.correctAnswer}</span>`;
       show_feedback(`Incorrect. The correct answer is: ${content}`, true);
     }
-  }  
+  }
 
   if (id === "got_it" || id === "next_question") {
     appState.currentQuestion++;

@@ -15,6 +15,9 @@
     <h3 class="mb-3">Welcome to the Quiz</h3>
     <form id="start_form">
       <input id="username" class="form-control my-2" placeholder="Enter name">
+      {{#if error}}
+        <p style="color: red; margin-top: -8px;">{{error}}</p>
+      {{/if}}
       <select id="quiz_select" class="form-select">
         <option value="quiz1">JavaScript Quiz</option>
         <option value="quiz2">Python Quiz</option>
@@ -22,7 +25,7 @@
       <button class="btn btn-primary" id="start_quiz" type="submit">Start Quiz</button>
     </form>
   </script>
-
+  
   <script id="question_view" type="text/x-handlebars-template">
     <div>
       <h5>Question {{currentIndex}} of {{total}}</h5>
