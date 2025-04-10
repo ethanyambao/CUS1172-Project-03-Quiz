@@ -1,5 +1,3 @@
-// quiz_app.js
-
 const appState = {
   username: "",
   quizId: "",
@@ -8,6 +6,7 @@ const appState = {
   total: 0,
   startTime: null,
   correctAnswer: "",
+  isLastQuestion: false,
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -15,65 +14,69 @@ document.addEventListener("DOMContentLoaded", () => {
   Handlebars.registerHelper('ifCond', function (v1, v2, options) {
     return (v1 === v2) ? options.fn(this) : options.inverse(this);
   });
-  document.querySelector("#widget_view").onclick = (e) => handle_event(e);
+
+  document.querySelector("#widget_view").addEventListener("click", (e) => handle_event(e));
+  document.querySelector("#widget_view").addEventListener("submit", (e) => handle_event(e));
 });
 
 function handle_event(e) {
   const id = e.target.id;
   const dataset = e.target.dataset;
 
-  if (id === "start_quiz") {
-    appState.username = document.querySelector("#username").value;
-    appState.quizId = document.querySelector("#quiz_select").value;
+  if (e.target.id === "start_form") {
+    e.preventDefault();
+    const nameInput = document.querySelector("#username");
+    const quizInput = document.querySelector("#quiz_select");
+
+    appState.username = nameInput.value;
+    appState.quizId = quizInput.value;
     appState.currentQuestion = 0;
     appState.score = 0;
     appState.total = 0;
     appState.startTime = Date.now();
     load_question();
+    return;
   }
 
   if (id === "submit-text-answer") {
     const input = document.querySelector("#text-response").value.trim().toLowerCase();
     const correct = appState.correctAnswer.toLowerCase();
     if (input === correct) {
-      show_feedback("Awesome!");
+      show_feedback("Correct!", false, true);
       appState.score++;
-      setTimeout(() => {
-        appState.currentQuestion++;
-        load_question();
-      }, 1000);
     } else {
-      show_feedback(`Correct answer is: ${appState.correctAnswer}`, true);
+      const content = isImageUrl(appState.correctAnswer)
+        ? `<img src='${appState.correctAnswer}' class='img-fluid correct-answer-img' alt='Correct Answer Image'>`
+        : `<span class='correct-answer'>${appState.correctAnswer}</span>`;
+      show_feedback(`Incorrect. The correct answer is: ${content}`, true);
     }
   }
 
   if (dataset.answer) {
     if (dataset.answer === appState.correctAnswer) {
-      show_feedback("Brilliant!");
+      show_feedback("Correct!", false, true);
       appState.score++;
-      setTimeout(() => {
-        appState.currentQuestion++;
-        load_question();
-      }, 1000);
     } else {
-      show_feedback(`Correct answer is: ${appState.correctAnswer}`, true);
+      const content = isImageUrl(appState.correctAnswer)
+        ? `<img src='${appState.correctAnswer}' class='img-fluid correct-answer-img' alt='Correct Answer Image'>`
+        : `<span class='correct-answer'>${appState.correctAnswer}</span>`;
+      show_feedback(`Incorrect. The correct answer is: ${content}`, true);
     }
   }
 
   if (dataset.img) {
     if (dataset.img === appState.correctAnswer) {
-      show_feedback("Good work!");
+      show_feedback("Correct!", false, true);
       appState.score++;
-      setTimeout(() => {
-        appState.currentQuestion++;
-        load_question();
-      }, 1000);
     } else {
-      show_feedback("That was not the correct image.", true);
+      const content = isImageUrl(appState.correctAnswer)
+        ? `<img src='${appState.correctAnswer}' class='img-fluid correct-answer-img' alt='Correct Answer Image'>`
+        : `<span class='correct-answer'>${appState.correctAnswer}</span>`;
+      show_feedback(`Incorrect. The correct answer is: ${content}`, true);
     }
   }
 
-  if (id === "got_it") {
+  if (id === "got_it" || id === "next_question") {
     appState.currentQuestion++;
     load_question();
   }
@@ -94,6 +97,7 @@ async function load_question() {
   }
 
   appState.correctAnswer = data.answer;
+  appState.isLastQuestion = appState.currentQuestion === 4;
   appState.total++;
   update_view("#question_view", {
     question: data,
@@ -102,10 +106,14 @@ async function load_question() {
   });
 }
 
-function show_feedback(msg, isWrong = false) {
+function show_feedback(msg, isWrong = false, isCorrect = false) {
   update_view("#feedback_view", {
     feedback: msg,
-    showButton: isWrong
+    showButton: isWrong,
+    isWrong: isWrong,
+    isCorrect: isCorrect,
+    showNext: isCorrect,
+    isLastQuestion: appState.isLastQuestion
   });
 }
 
@@ -126,3 +134,8 @@ function update_view(view, model = {}) {
   const html = template({ ...model, ...appState });
   document.querySelector("#widget_view").innerHTML = html;
 }
+
+function isImageUrl(url) {
+  return /\.(jpeg|jpg|gif|png|svg|webp)$/i.test(url);
+}
+

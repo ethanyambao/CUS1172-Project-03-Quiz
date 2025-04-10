@@ -46,6 +46,8 @@ img[data-img] {
   border-radius: 8px;
   cursor: pointer;
   border: 2px solid transparent;
+  object-fit: contain;
+  background-color: white;
 }
 
 img[data-img]:hover {
@@ -57,5 +59,22 @@ img[data-img]:hover {
   padding: 15px;
   border-radius: 8px;
   font-weight: 600;
+  margin-top: 15px;
+  color: #003366;
+}
+
+.alert-correct {
+  color: #1c6e33;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.correct-answer {
+  color: #28a745;
+  font-weight: bold;
+  display: inline;
+}
+
+.feedback-container {
   margin-top: 15px;
 }
